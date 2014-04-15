@@ -1,7 +1,7 @@
 (ns plural.core
   (:require [clojure.string :as string]))
 
-(def rules (array-map
+(def ^:private rules (array-map
   "(?i)(z)ombies$" "$1ombies"
   "(?i)(z)ombie$" "$1ombies"
   "(?i)k(?i)ine$" "kine"
@@ -40,10 +40,11 @@
   "(?i)s$" "s"
   "$" "s"))
 
-(def uncountables (map str '(equipment information rice money
+(def ^:private uncountables (map str '(equipment information rice money
                              species series fish sheep jeans police)))
 
 (defn pluralize
+  "Pluralizes a word."
   [word]
   (if (some #(re-find (re-pattern %) word) uncountables)
     word
