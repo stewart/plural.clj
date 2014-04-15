@@ -1,4 +1,5 @@
-(ns plural.core)
+(ns plural.core
+  (:require [clojure.string :as string]))
 
 (def rules (array-map
   "(?i)(z)ombies$" "$1ombies"
@@ -47,4 +48,4 @@
   (if (some #(re-find (re-pattern %) word) uncountables)
     word
     (let [[regex rule] (first (filter #(re-find (re-pattern (key %)) word) rules))]
-      (clojure.string/replace word (re-pattern regex) rule))))
+      (string/replace word (re-pattern regex) rule))))
